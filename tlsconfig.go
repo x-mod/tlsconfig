@@ -65,3 +65,15 @@ func ServerAuthSkip() Option {
 		cf.InsecureSkipVerify = true
 	}
 }
+
+func GetCertificate(getter func(*tls.ClientHelloInfo) (*tls.Certificate, error)) Option {
+	return func(cf *tls.Config) {
+		cf.GetCertificate = getter
+	}
+}
+
+func GetClientCertificate(getter func(*tls.CertificateRequestInfo) (*tls.Certificate, error)) Option {
+	return func(cf *tls.Config) {
+		cf.GetClientCertificate = getter
+	}
+}
